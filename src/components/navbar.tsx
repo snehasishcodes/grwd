@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage, } from "@/components/ui/avatar";
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useTheme } from "next-themes";
 
 type NavbarUser = {
     id: string
@@ -23,13 +24,15 @@ export default function Navbar({ user }: { user: NavbarUser }) {
 
     const session = useSession();
     const sessionUser = session?.data?.user;
+    const { setTheme, theme } = useTheme();
+    console.log(theme)
 
     useEffect(() => {
         setIsAuthor(user?.id === sessionUser?.id);
     }, [user, sessionUser]);
 
     return (
-        <nav className="flex flex-row justify-between items-center gap-4 px-4 md:px-20 py-4">
+        <nav className="min-h-[10vh] h-[10vh] max-h-[10vh] w-full flex flex-row justify-between items-center gap-4 px-4 md:px-20    ">
             <div className="flex justify-center items-center gap-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -48,7 +51,7 @@ export default function Navbar({ user }: { user: NavbarUser }) {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        <DropdownMenuItem>Copy Link</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setTheme("dark")}>Copy Link</DropdownMenuItem>
                         <DropdownMenuItem>Share</DropdownMenuItem>
                         <DropdownMenuSeparator />
                         {

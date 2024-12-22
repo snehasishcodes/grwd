@@ -9,7 +9,7 @@ const users = models.users || model("users",
         description: { type: String, required: false },
         avatar: { type: String, required: false },
         links: { type: Array, required: false, default: [] },
-        posts: { type: Array, required: false, default: [] },
+        posts: { type: Object, required: false, default: {} },
         settings: { type: Object, required: false, default: { theme: "dark" } },
         logs: { type: Array, required: false },
         created: { type: Date, required: true, default: new Date() }

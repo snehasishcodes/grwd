@@ -1,12 +1,12 @@
 import connectMongoDB from "@/database/connect";
-import { getServerSession } from "next-auth";
-import nextAuthOptions from "../../../auth/options";
 import users from "@/database/models/users";
+import { auth } from "@/providers/auth";
 
 export async function GET(req: Request, { params }: { params: Promise<{ username: string }> }) {
     await connectMongoDB();
-    const session = await getServerSession(nextAuthOptions);
+
     const username = (await params).username;
+    const session = await auth();
 
     const user = await users.findOne({ username });
 
@@ -15,8 +15,11 @@ export async function GET(req: Request, { params }: { params: Promise<{ username
 
         return Response.json({
             success: true,
+            user: {
+                id: user.id,
+                isAuthor: user.email === session?.user?.email
+            },
             posts,
-            isAuthor: user.email === session?.user?.email,
             code: 200
         });
     } else {

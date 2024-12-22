@@ -11,6 +11,7 @@ export type PostItemType = {
     description: string
     images: PostItemImageType[]
     bgImage: string | undefined
+    url: string
 }
 
 export type PostItemImageType = {

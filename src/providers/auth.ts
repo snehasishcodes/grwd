@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import DiscordProvider from "next-auth/providers/discord";
 import connectMongoDB from "@/database/connect";
@@ -6,7 +6,7 @@ import users from "@/database/models/users";
 import emailToUsername from "@/lib/email-username";
 import createID from "@/lib/id";
 
-const nextAuthOptions: NextAuthOptions = {
+export const { handlers, signIn, signOut, auth } = NextAuth({
     secret: process.env.NEXTAUTH_SECRET,
     providers: [
         GoogleProvider({
@@ -97,6 +97,4 @@ const nextAuthOptions: NextAuthOptions = {
             return session;
         },
     }
-};
-
-export default nextAuthOptions;
+});

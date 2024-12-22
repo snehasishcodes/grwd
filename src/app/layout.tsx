@@ -1,5 +1,5 @@
-import SessionProvider from "./session";
-import { ThemeProvider } from "./theme";
+import SessionProvider from "@/providers/session";
+import { ThemeProvider } from "@/providers/theme";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
